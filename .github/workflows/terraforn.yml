@@ -3,12 +3,11 @@ name: Terraform Azure Deployment
 on:
   push:
     branches:
-    - main # Trigger on push to main branch
+    - main
 
 jobs:
   terraform:
     runs-on: ubuntu-latest
-    environment: production # Optional: Use GitHub Environments for additional security
 
     steps:
     - name: Checkout code
@@ -17,10 +16,9 @@ jobs:
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v2
       with:
-        terraform_version: 1.5.0 # Replace with your Terraform version
+        terraform_version: 1.5.0
 
     - name: Terraform Init
-      id: init
       run: terraform init
       env:
         ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
@@ -29,19 +27,7 @@ jobs:
         ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
     - name: Terraform Plan
-      id: plan
-      run: terraform plan -var "admin_password=${{ secrets.ADMIN_PASSWORD }}" -out=tfplan
-      env:
-        ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-        ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-        ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-        ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      run: terraform plan \ -var "admin_password=${{ secrets.ADMIN_PASSWORD }}" \ -var "client_id=${{ secrets.AZURE_CLIENT_ID }}" \ -var "client_secret=${{ secrets.AZURE_CLIENT_SECRET }}" \ -var "tenant_id=${{ secrets.AZURE_TENANT_ID }}" \ -var "subscription_id=${{ secrets.AZURE_SUBSCRIPTION_ID }}" \ -out=tfplan
 
     - name: Terraform Apply
-      id: apply
       run: terraform apply -auto-approve tfplan
-      env:
-        ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-        ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-        ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-        ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
