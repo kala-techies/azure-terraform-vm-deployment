@@ -12,8 +12,6 @@ terraform {
 #     container_name       = "tfstate"             # Replace with your container name
 #     key                  = "terraform.tfstate"   # Name of the state file
   }
-}
-
 provider "azurerm" {
   features {}
 }
