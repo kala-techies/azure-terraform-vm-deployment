@@ -1,8 +1,28 @@
-# variables.tf
 variable "location" {
   description = "The Azure region where resources will be deployed."
   type        = string
   default     = "East US"
+}
+
+variable "subscription_id" {
+  description = "Azure Subscription ID"
+  type        = string
+}
+
+variable "client_id" {
+  description = "Azure Client ID"
+  type        = string
+}
+
+variable "client_secret" {
+  description = "Azure Client Secret"
+  type        = string
+  sensitive   = true
+}
+
+variable "tenant_id" {
+  description = "Azure Tenant ID"
+  type        = string
 }
 
 variable "admin_username" {
@@ -15,7 +35,6 @@ variable "admin_password" {
   description = "Admin password for the Virtual Machine."
   type        = string
   sensitive   = true
-  default     = "P@ssw0rd123!" # Change this to a secure password
 }
 
 variable "vm_size" {

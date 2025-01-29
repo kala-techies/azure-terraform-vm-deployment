@@ -1,4 +1,4 @@
-name: terraform deployment using github actions
+name: Terraform Deployment using GitHub Actions
 
 on:
   push:
@@ -27,7 +27,7 @@ jobs:
         ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
     - name: Terraform Plan
-      run: terraform plan -out=tfplan
+      run: terraform plan -var="subscription_id=${{ secrets.AZURE_SUBSCRIPTION_ID }}" \ -var="client_id=${{ secrets.AZURE_CLIENT_ID }}" \ -var="client_secret=${{ secrets.AZURE_CLIENT_SECRET }}" \ -var="tenant_id=${{ secrets.AZURE_TENANT_ID }}" \ -out=tfplan
 
     - name: Terraform Apply
       run: terraform apply -auto-approve tfplan
