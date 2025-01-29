@@ -1,9 +1,3 @@
-variable "location" {
-  description = "The Azure region where resources will be deployed."
-  type        = string
-  default     = "East US"
-}
-
 variable "subscription_id" {
   description = "Azure Subscription ID"
   type        = string
@@ -25,26 +19,33 @@ variable "tenant_id" {
   type        = string
 }
 
-variable "admin_username" {
-  description = "Admin username for the Virtual Machine."
-  type        = string
-  default     = "adminuser"
-}
-
 variable "admin_password" {
-  description = "Admin password for the Virtual Machine."
+  description = "Admin password for the VM"
   type        = string
   sensitive   = true
 }
 
-variable "vm_size" {
-  description = "Size of the Virtual Machine."
+variable "location" {
+  description = "Azure Region"
   type        = string
-  default     = "Standard_B2s"
+  default     = "East US"
+  
+}
+
+variable "vm_size" {
+  description = "Size of the VM"
+  type        = string
+  default     = "Standard_DS1_v2" 
 }
 
 variable "public_ip_allocation_method" {
-  description = "Allocation method for the Public IP (Static or Dynamic)."
+    description = "Allocation method for the Public IP"
+    type        = string
+    default     = "Static"
+  }
+
+variable "admin_username" {
+  description = "Admin username for the VM"
   type        = string
-  default     = "Static"
+  default     = "adminuser"
 }
