@@ -27,7 +27,13 @@ jobs:
         ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
     - name: Terraform Plan
-      run: terraform plan \ -var "admin_password=${{ secrets.ADMIN_PASSWORD }}" \ -var "client_id=${{ secrets.AZURE_CLIENT_ID }}" \ -var "client_secret=${{ secrets.AZURE_CLIENT_SECRET }}" \ -var "tenant_id=${{ secrets.AZURE_TENANT_ID }}" \ -var "subscription_id=${{ secrets.AZURE_SUBSCRIPTION_ID }}" \ -out=tfplan
+      run: |
+        terraform plan -out=tfplan \
+          -var "admin_password=${{ secrets.ADMIN_PASSWORD }}" \
+          -var "client_id=${{ secrets.AZURE_CLIENT_ID }}" \
+          -var "client_secret=${{ secrets.AZURE_CLIENT_SECRET }}" \
+          -var "tenant_id=${{ secrets.AZURE_TENANT_ID }}" \
+          -var "subscription_id=${{ secrets.AZURE_SUBSCRIPTION_ID }}"
 
     - name: Terraform Apply
       run: terraform apply -auto-approve tfplan
