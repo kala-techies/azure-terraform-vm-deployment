@@ -15,7 +15,7 @@ variable "admin_password" {
   description = "Admin password for the Virtual Machine."
   type        = string
   sensitive   = true
-  default     = "P@ssw0rd123!"  # Change this to a secure password
+  default     = "P@ssw0rd123!" # Change this to a secure password
 }
 
 variable "vm_size" {
@@ -27,5 +27,5 @@ variable "vm_size" {
 variable "public_ip_allocation_method" {
   description = "Allocation method for the Public IP (Static or Dynamic)."
   type        = string
-  default     = "Dynamic"
+  default     = "Static"
 }
